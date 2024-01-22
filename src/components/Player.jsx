@@ -1,9 +1,10 @@
 import React from "react";
 import {useState} from "react";
-export default function Player({initialName, playerSymbol}) {
+export default function Player({initialName, symbol, isActive}) {
 
     const [playerName, setPlayerName] = useState(initialName);
     const [isEditing, setEditing] = useState(false);
+
 
     function handleClick() {
         setEditing((editing) => !editing);
@@ -20,10 +21,10 @@ export default function Player({initialName, playerSymbol}) {
     }
 
     return (
-        <li>
+        <li className = {isActive ? 'active' : undefined}>
             <span className="player">
                 {player}
-                <span className="player-symbol">{playerSymbol}</span>
+                <span className="player-symbol">{symbol}</span>
             </span>
             <button onClick={handleClick}>{isEditing ? 'Save' : 'Edit'}</button>
         </li>
