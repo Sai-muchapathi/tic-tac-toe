@@ -1,0 +1,78 @@
+name: Update Badge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Calculate Percentage
+        run: |
+          # Add your script to analyze the codebase and calculate the percentage
+          #!/bin/bash
+
+# Specify the technologies you want to track
+technologies=("JavaScript" "Python" "Java" "HTML" "CSS")
+
+# Initialize an associative array to store line counts for each technology
+declare -A line_counts
+
+# Iterate over each technology and count lines of code
+for tech in "${technologies[@]}"; do
+    # Use a code analysis tool (e.g., cloc) to count lines of code for the technology
+    # Update the command based on your specific tool and codebase structure
+    line_count=$(cloc --include-lang="$tech" --csv --quiet . | grep "$tech" | awk -F',' '{print $5}')
+    
+    # Store the line count in the associative array
+    line_counts["$tech"]=$line_count
+done
+
+# Calculate the total lines of code
+total_lines=0
+for tech in "${technologies[@]}"; do
+    total_lines=$((total_lines + line_counts["$tech"]))
+done
+
+# Create a file to store the calculated percentages
+echo "# Technology Percentage Report" > tech_percentage.md
+
+# Calculate the percentage for each technology and write to the file
+for tech in "${technologies[@]}"; do
+    percentage=$(bc <<< "scale=2; (${line_counts["$tech"]} / $total_lines) * 100")
+    
+    # Write the percentage to the file
+    echo "$tech: $percentage%" >> tech_percentage.md
+done
+
+# Print the content of the file (optional, for verification purposes)
+cat tech_percentage.md
+
+# Commit the changes to the repository
+git add tech_percentage.md
+git commit -m "Update technology percentage"
+git push
+
+          # Update a file with the calculated percentage
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add your-badge-file.md
+          git commit -m "Update technology percentage"
+          git push
