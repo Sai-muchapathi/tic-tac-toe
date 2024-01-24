@@ -1,0 +1,8 @@
+public/ vs assets/
+
+By using public/ the content like images for example are uplifted and we can directly use them without providing absolute path.
+The "public" directory is often used to store files that are meant to be directly accessible to the public or end-users.
+Files in the "public" directory are accessible through the browser using their relative paths.
+
+
+In some contexts, "assets" might refer to a directory where developers organize various static files, including images, stylesheets, fonts, and more.
