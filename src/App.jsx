@@ -10,25 +10,32 @@ const initialGameBoard = [
     [null, null, null],
     [null, null, null]
 ];
+
+function deriveActivePlayer(gameTurns) {
+    let currentPlayer = 'X';
+    if(gameTurns.length > 0 && gameTurns[0].player === 'X') {
+        currentPlayer = 'O';
+    }
+    return currentPlayer;
+}
+
 function App() {
-
-
-    // Lifting player state up so that both GameBoard and Player components can know the common value i.e, PlayerSymbol
-    const [activePlayer, setActivePlayer] = useState('X');
 
     // sharing gameTurns state across different componentS (GameBoard and Log). Check the return stmt.
     const [gameTurns, setGameTurns] = useState([]);
 
+    const activePlayer = deriveActivePlayer(gameTurns);
     function handleSelect(rowIndex, colIndex) {
-        setActivePlayer((curPlayer) => curPlayer === 'X' ? 'O' : 'X');
+
         setGameTurns( (prevTurns) => {
+            const currentPlayer = deriveActivePlayer(prevTurns);
             const updatedTurns = [
                 {
                     square: {
                         row: rowIndex,
                         col: colIndex
                     },
-                    player: activePlayer
+                    player: currentPlayer
                 }
                 ,...prevTurns,
             ];
