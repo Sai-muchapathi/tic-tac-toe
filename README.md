@@ -1,3 +1,1 @@
-# My Awesome Project
-
-[![Technology Distribution](https://your-ci-service/badge-url)]([https://link-to-your-repo](https://github.com/Sai-muchapathi/tic-tac-toe.git)https://github.com/Sai-muchapathi/tic-tac-toe.git)
+[![Sai's GitHub stats](https://github-readme-stats.vercel.app/api?username=saim80191@gmail.com)](https://github.com/Sai-muchapathi/github-readme-stats)
